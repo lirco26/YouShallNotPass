@@ -44,7 +44,7 @@ input {
     flex-direction: column;
 }
 
-.buttons {
+.control-buttons {
     display: flex;
     justify-content: space-around;
     margin-bottom: 40px;
@@ -52,7 +52,7 @@ input {
     align-self: center;
 }
 
-.control-buttons {
+.control-button {
     font-size: 1.2em;
     width: 5em;
 }
