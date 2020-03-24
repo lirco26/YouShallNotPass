@@ -18,11 +18,11 @@ export default class Skill extends React.Component {
         this.onBlurInput = this.onBlurInput.bind(this);
         this.onChangeInput = this.onChangeInput.bind(this);
 
-        this.state = {borderColor: ''};
+        this.state = {validationClass: ''};
     }
 
     getFixedSkillPoints(value) {
-        this.setState( {borderColor: ''});
+        this.setState( {validationClass: ''});
         if (value < MIN_POSSIBLE_POINTS) {
             return MIN_POSSIBLE_POINTS;
         }
@@ -49,10 +49,10 @@ export default class Skill extends React.Component {
         const newValue = Number(evt.target.value);
         this.props.updatePointsStatus(newValue);
         if (newValue !== this.getFixedSkillPoints(newValue)) {
-            this.setState({borderColor: '2px solid red'});
+            this.setState({validationClass: 'invalid-input'});
         }
         else {
-            this.setState( {borderColor: ''});
+            this.setState( {validationClass: ''});
         }
     }
 
@@ -67,11 +67,11 @@ export default class Skill extends React.Component {
             <div className="skill-points">
                 <button onClick={this.addPoint}>+</button>
                 <input
+                    className={this.state.validationClass}
                     type="number"
                     value={this.props.value}
                     onChange={this.onChangeInput}
                     onBlur={this.onBlurInput}
-                    style={{border: this.state.borderColor}}
                 />
                 <button onClick={this.subPoint}>-</button>
             </div>

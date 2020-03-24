@@ -36,7 +36,10 @@ h1 {
 input {
     text-align: center;
     width: 50px;
+}
 
+.invalid-input {
+    border: 2px solid red;
 }
 
 .game-body {
