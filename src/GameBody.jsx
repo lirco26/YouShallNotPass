@@ -7,7 +7,7 @@ import {getOneValueArray, splitAmountRandomly} from './mathUtils.js';
 
 const SKILLS_NAMES = ['STR', 'DEX', 'INT', 'WIS', 'CHR', 'CON'];
 const INIT_SKILL_VALUE = 6;
-const SKILLS_VALUES = getOneValueArray(INIT_SKILL_VALUE, SKILLS_NAMES.length);
+const SKILLS_VALUES = getOneValueArray(SKILLS_NAMES.length, INIT_SKILL_VALUE);
 const _ = require('lodash');
 
 export default class GameBody extends React.Component {
@@ -23,7 +23,7 @@ export default class GameBody extends React.Component {
         this.state = {skillsNamesToPoints};
 
         this.getFreePoints = this.getFreePoints.bind(this);
-        this.updateSkillPoints = this.updateSkillPoints.bind(this);
+        this.setSkillPoints = this.setSkillPoints.bind(this);
         this.getPointsErrorMessage = this.getPointsErrorMessage.bind(this);
         this.onResetClick = this.onResetClick.bind(this);
         this.onRandomClick = this.onRandomClick.bind(this);
@@ -49,7 +49,7 @@ export default class GameBody extends React.Component {
         return this.totalSkillPoints - pointsUsed;
     }
 
-    updateSkillPoints(skillName, newValue) {
+    setSkillPoints(skillName, newValue) {
         this.setState(prevState => {
             const namesAndValues = prevState.skillsNamesToPoints;
             namesAndValues[skillName] = newValue;
@@ -68,16 +68,15 @@ export default class GameBody extends React.Component {
         this.setState({skillsNamesToPoints});
     }
 
-
     render() {
         return <div className="game-body">
             <PointsDescription totalPoints={this.totalSkillPoints} freePoints={this.getFreePoints()}/>
             <ErrorMessage message={this.getPointsErrorMessage()}/>
             <SkillsList
-                updateSkillPoints={this.updateSkillPoints}
+                setSkillPoints={this.setSkillPoints}
                 skillsNamesToPoints={this.state.skillsNamesToPoints}
             />
-            <ControlButtonList buttonsNamesToFunctions={{'Random': this.onRandomClick, 'Reset': this.onResetClick}} />
+            <ControlButtonList buttonsNamesToFunctions={{'Random': this.onRandomClick, 'Reset': this.onResetClick}}/>
         </div>;
     }
 }

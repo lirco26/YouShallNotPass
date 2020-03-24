@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-function getOneValueArray(value, length) {
+function getOneValueArray(length, value) {
     return new Array(length).fill(value);
 }
 

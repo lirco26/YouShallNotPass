@@ -7,22 +7,50 @@ const MAX_POSSIBLE_POINTS = 30;
 export default class Skill extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-        updatePointsStatus: PropTypes.func.isRequired,
+        pointsValue: PropTypes.number.isRequired,
+        setPointsValue: PropTypes.func.isRequired,
     };
 
     constructor(props) {
         super(props);
         this.addPoint = this.addPoint.bind(this);
         this.subPoint = this.subPoint.bind(this);
-        this.onBlurInput = this.onBlurInput.bind(this);
-        this.onChangeInput = this.onChangeInput.bind(this);
+        this.onInputBlur = this.onInputBlur.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
 
         this.state = {validationClass: ''};
     }
 
+    addPoint() {
+        this.validatePointsAndUpdate(this.props.pointsValue + 1);
+    }
+
+    subPoint() {
+        this.validatePointsAndUpdate(this.props.pointsValue - 1);
+    }
+
+    onInputChange(event) {
+        const newValue = Number(event.target.value);
+        this.props.setPointsValue(newValue);
+        if (newValue !== this.getFixedSkillPoints(newValue)) {
+            this.setState({validationClass: 'invalid-input'});
+        } else {
+            this.setState({validationClass: ''});
+        }
+    }
+
+    onInputBlur(evt) {
+        const newValue = Number(evt.target.value);
+        this.validatePointsAndUpdate(newValue);
+    }
+
+    validatePointsAndUpdate(pointsValue) {
+        const fixedValue = this.getFixedSkillPoints(pointsValue);
+        this.props.setPointsValue(fixedValue);
+    }
+
     getFixedSkillPoints(value) {
-        this.setState( {validationClass: ''});
+        this.setState({validationClass: ''});
         if (value < MIN_POSSIBLE_POINTS) {
             return MIN_POSSIBLE_POINTS;
         }
@@ -30,35 +58,6 @@ export default class Skill extends React.Component {
             return MAX_POSSIBLE_POINTS;
         }
         return value;
-    }
-
-    validatePointsAndUpdate(pointsValue) {
-        const fixedValue = this.getFixedSkillPoints(pointsValue);
-        this.props.updatePointsStatus(fixedValue);
-    }
-
-    addPoint() {
-        this.validatePointsAndUpdate(this.props.value + 1);
-    }
-
-    subPoint() {
-        this.validatePointsAndUpdate(this.props.value - 1);
-    }
-
-    onChangeInput(evt) {
-        const newValue = Number(evt.target.value);
-        this.props.updatePointsStatus(newValue);
-        if (newValue !== this.getFixedSkillPoints(newValue)) {
-            this.setState({validationClass: 'invalid-input'});
-        }
-        else {
-            this.setState( {validationClass: ''});
-        }
-    }
-
-    onBlurInput(evt) {
-        const newValue = Number(evt.target.value);
-        this.validatePointsAndUpdate(newValue);
     }
 
     render() {
@@ -69,9 +68,9 @@ export default class Skill extends React.Component {
                 <input
                     className={this.state.validationClass}
                     type="number"
-                    value={this.props.value}
-                    onChange={this.onChangeInput}
-                    onBlur={this.onBlurInput}
+                    value={this.props.pointsValue}
+                    onChange={this.onInputChange}
+                    onBlur={this.onInputBlur}
                 />
                 <button onClick={this.subPoint}>-</button>
             </div>

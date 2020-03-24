@@ -8,8 +8,8 @@ export default function SkillsList(props) {
     const skillsList = _.map(props.skillsNamesToPoints, (skillPoints, skillName) => {
         return <Skill
             name={skillName}
-            value={skillPoints}
-            updatePointsStatus={(points) => props.updateSkillPoints(skillName, points)}
+            pointsValue={skillPoints}
+            setPointsValue={(points) => props.setSkillPoints(skillName, points)}
         />;
     });
 
@@ -20,6 +20,6 @@ export default function SkillsList(props) {
 }
 
 SkillsList.propTypes = {
-    updateSkillPoints: PropTypes.func.isRequired,
+    setSkillPoints: PropTypes.func.isRequired,
     skillsNamesToPoints: PropTypes.object.isRequired,
 };
