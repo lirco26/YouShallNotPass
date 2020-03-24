@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import PointsSynchronizer from './PointsSynchronizer.jsx';
+import GameBody from './GameBody.jsx';
 
 function App() {
   return <div>
         <h1>DND</h1>
-        <PointsSynchronizer minTotalPoints={85} maxTotalPoints={89} />
+        <GameBody minTotalPoints={85} maxTotalPoints={89} />
     </div>;
 }
 
