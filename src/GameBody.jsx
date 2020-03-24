@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
-import SkillsList from './SkillsList.jsx'
-import {getRandomInt, sumArray, getOneValueArray, splitPointsRandomly} from './mathUtils.js';
+import SkillsList from './SkillsList.jsx';
+import {PointsDescription, ErrorMessage, ControlButtonList} from './pointsControlComponents.jsx';
+import {getOneValueArray, splitAmountRandomly} from './mathUtils.js';
 
 const SKILLS_NAMES = ['STR', 'DEX', 'INT', 'WIS', 'CHR', 'CON'];
 const INIT_SKILL_VALUE = 6;
 const SKILLS_VALUES = getOneValueArray(INIT_SKILL_VALUE, SKILLS_NAMES.length);
 const _ = require('lodash');
 
-export default class PointsSynchronizer extends React.Component {
+export default class GameBody extends React.Component {
     static propTypes = {
         minTotalPoints: PropTypes.number.isRequired,
         maxTotalPoints: PropTypes.number.isRequired,
@@ -17,15 +18,15 @@ export default class PointsSynchronizer extends React.Component {
 
     constructor(props) {
         super(props);
+        this.totalSkillPoints = _.random(this.props.minTotalPoints, this.props.maxTotalPoints);
+        const skillsNamesToPoints = _.zipObject(SKILLS_NAMES, SKILLS_VALUES);
+        this.state = {skillsNamesToPoints};
+
         this.getFreePoints = this.getFreePoints.bind(this);
         this.updateSkillPoints = this.updateSkillPoints.bind(this);
         this.getPointsErrorMessage = this.getPointsErrorMessage.bind(this);
         this.onResetClick = this.onResetClick.bind(this);
         this.onRandomClick = this.onRandomClick.bind(this);
-
-        this.totalSkillPoints = getRandomInt(this.props.minTotalPoints, this.props.maxTotalPoints);
-        const namesAndValues = _.zipObject(SKILLS_NAMES, SKILLS_VALUES);
-        this.state = {skillsNamesAndValues: namesAndValues};
     }
 
     getPointsErrorMessage() {
@@ -43,14 +44,14 @@ export default class PointsSynchronizer extends React.Component {
     }
 
     getFreePoints() {
-        const skillsValues = Object.values(this.state.skillsNamesAndValues);
-        const pointsUsed = sumArray(skillsValues);
+        const skillsValues = Object.values(this.state.skillsNamesToPoints);
+        const pointsUsed = _.sum(skillsValues);
         return this.totalSkillPoints - pointsUsed;
     }
 
     updateSkillPoints(skillName, newValue) {
         this.setState(prevState => {
-            const namesAndValues = prevState.skillsNamesAndValues;
+            const namesAndValues = prevState.skillsNamesToPoints;
             namesAndValues[skillName] = newValue;
             return namesAndValues;
         })
@@ -58,31 +59,25 @@ export default class PointsSynchronizer extends React.Component {
 
     onResetClick() {
         const initialState = _.zipObject(SKILLS_NAMES, SKILLS_VALUES);
-        this.setState({skillsNamesAndValues: initialState});
+        this.setState({skillsNamesToPoints: initialState});
     }
 
     onRandomClick() {
-        const randomPoints = splitPointsRandomly(this.totalSkillPoints, SKILLS_NAMES.length, 6, 30);
-        const skillsNamesAndValues = _.zipObject(SKILLS_NAMES, randomPoints);
-        this.setState({skillsNamesAndValues});
+        const randomPoints = splitAmountRandomly(this.totalSkillPoints, SKILLS_NAMES.length, 6, 30);
+        const skillsNamesToPoints = _.zipObject(SKILLS_NAMES, randomPoints);
+        this.setState({skillsNamesToPoints});
     }
 
 
     render() {
         return <div className="game-body">
-            <div className="points-description">
-                <label>Total skill points: {this.totalSkillPoints} </label>
-                <label>Free skill points: {this.getFreePoints()}</label>
-            </div>
-            <label className="error-message">{this.getPointsErrorMessage()}</label>
+            <PointsDescription totalPoints={this.totalSkillPoints} freePoints={this.getFreePoints()}/>
+            <ErrorMessage message={this.getPointsErrorMessage()}/>
             <SkillsList
                 updateSkillPoints={this.updateSkillPoints}
-                skillsNamesAndValues={this.state.skillsNamesAndValues}
+                skillsNamesToPoints={this.state.skillsNamesToPoints}
             />
-            <div className="buttons">
-                <button className="control-buttons" onClick={this.onRandomClick}> Random</button>
-                <button className="control-buttons" onClick={this.onResetClick}> Reset</button>
-            </div>
+            <ControlButtonList buttonsNamesToFunctions={{'Random': this.onRandomClick, 'Reset': this.onResetClick}} />
         </div>;
     }
 }
