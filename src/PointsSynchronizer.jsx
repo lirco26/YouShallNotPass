@@ -10,9 +10,14 @@ const SKILLS_VALUES = getOneValueArray(INIT_SKILL_VALUE, SKILLS_NAMES.length);
 const _ = require('lodash');
 
 export default class PointsSynchronizer extends React.Component {
+    static propTypes = {
+        minTotalPoints: PropTypes.number.isRequired,
+        maxTotalPoints: PropTypes.number.isRequired,
+    };
+
     constructor(props) {
         super(props);
-        this.calculateFreePoints = this.calculateFreePoints.bind(this);
+        this.getFreePoints = this.getFreePoints.bind(this);
         this.updateSkillPoints = this.updateSkillPoints.bind(this);
         this.getPointsErrorMessage = this.getPointsErrorMessage.bind(this);
         this.onResetClick = this.onResetClick.bind(this);
@@ -25,11 +30,11 @@ export default class PointsSynchronizer extends React.Component {
 
     getPointsErrorMessage() {
         let errorMessage = '';
-        if(this.calculateFreePoints() > 0) {
+        const freePoints = this.getFreePoints();
+        if (freePoints > 0) {
             errorMessage = 'You still have points to hand out to your skills. ' +
                 'Please fix this and make sure free points gets to zero.'
-        }
-        else if (this.calculateFreePoints() < 0) {
+        } else if (freePoints < 0) {
             errorMessage = 'You handed out too many points. You don\'t have that much. ' +
                 'Please fix this and make sure free points gets to zero.'
         }
@@ -37,7 +42,7 @@ export default class PointsSynchronizer extends React.Component {
         return errorMessage;
     }
 
-    calculateFreePoints() {
+    getFreePoints() {
         const skillsValues = Object.values(this.state.skillsNamesAndValues);
         const pointsUsed = sumArray(skillsValues);
         return this.totalSkillPoints - pointsUsed;
@@ -67,7 +72,7 @@ export default class PointsSynchronizer extends React.Component {
         return <div className="game-body">
             <div className="points-description">
                 <label>Total skill points: {this.totalSkillPoints} </label>
-                <label>Free skill points: {this.calculateFreePoints()}</label>
+                <label>Free skill points: {this.getFreePoints()}</label>
             </div>
             <label className="error-message">{this.getPointsErrorMessage()}</label>
             <SkillsList
@@ -75,15 +80,9 @@ export default class PointsSynchronizer extends React.Component {
                 skillsNamesAndValues={this.state.skillsNamesAndValues}
             />
             <div className="buttons">
-                <button className="control-buttons" onClick={this.onRandomClick}> Random </button>
-                <button className="control-buttons" onClick={this.onResetClick}> Reset </button>
+                <button className="control-buttons" onClick={this.onRandomClick}> Random</button>
+                <button className="control-buttons" onClick={this.onResetClick}> Reset</button>
             </div>
         </div>;
     }
 }
-
-PointsSynchronizer.propTypes = {
-    minTotalPoints: PropTypes.number.isRequired,
-    maxTotalPoints: PropTypes.number.isRequired,
-    initSkillValue: PropTypes.number.isRequired,
-};

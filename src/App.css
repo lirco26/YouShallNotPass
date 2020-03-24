@@ -8,7 +8,7 @@ h1 {
     background: darkred;
     margin-top: 0;
     justify-content: center;
-    height: 15vh;
+    height: 10vh;
     align-items: center;
     font-size: 8vh;
     color: white;
@@ -19,7 +19,7 @@ h1 {
 .skill {
     display: flex;
     justify-content: space-around;
-    padding: 3vh 0;
+    padding: 2vh 0;
 }
 
 .skills-list {

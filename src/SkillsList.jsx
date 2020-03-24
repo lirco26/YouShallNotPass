@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import Skill from './Skill.jsx'
 
 export default class SkillsList extends React.Component {
+    static propTypes = {
+        updateSkillPoints: PropTypes.func.isRequired,
+        skillsNamesAndValues: PropTypes.object.isRequired,
+    };
+
     getListOfSkills() {
         const skillsList = [];
         for (let skillName of Object.keys(this.props.skillsNamesAndValues)) {
@@ -25,8 +30,3 @@ export default class SkillsList extends React.Component {
         </div>;
     }
 }
-
-SkillsList.propTypes = {
-    updateSkillPoints: PropTypes.func.isRequired,
-    skillsNamesAndValues: PropTypes.object.isRequired,
-};

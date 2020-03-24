@@ -5,10 +5,16 @@ const MIN_POSSIBLE_POINTS = 6;
 const MAX_POSSIBLE_POINTS = 30;
 
 export default class Skill extends React.Component {
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        updatePointsStatus: PropTypes.func.isRequired,
+    };
+
     constructor(props) {
         super(props);
-        this.onPlusClick = this.onPlusClick.bind(this);
-        this.onMinusClick = this.onMinusClick.bind(this);
+        this.addPoint = this.addPoint.bind(this);
+        this.subPoint = this.subPoint.bind(this);
         this.onBlurInput = this.onBlurInput.bind(this);
         this.onChangeInput = this.onChangeInput.bind(this);
 
@@ -26,17 +32,17 @@ export default class Skill extends React.Component {
         return value;
     }
 
-    checkPointsAndUpdate(newValue) {
-        const fixedValue = this.getFixedSkillPoints(newValue);
+    validatePointsAndUpdate(pointsValue) {
+        const fixedValue = this.getFixedSkillPoints(pointsValue);
         this.props.updatePointsStatus(fixedValue);
     }
 
-    onPlusClick() {
-        this.checkPointsAndUpdate(this.props.value + 1);
+    addPoint() {
+        this.validatePointsAndUpdate(this.props.value + 1);
     }
 
-    onMinusClick() {
-        this.checkPointsAndUpdate(this.props.value - 1);
+    subPoint() {
+        this.validatePointsAndUpdate(this.props.value - 1);
     }
 
     onChangeInput(evt) {
@@ -52,14 +58,14 @@ export default class Skill extends React.Component {
 
     onBlurInput(evt) {
         const newValue = Number(evt.target.value);
-        this.checkPointsAndUpdate(newValue);
+        this.validatePointsAndUpdate(newValue);
     }
 
     render() {
         return <div className="skill">
             {this.props.name}
             <div className="skill-points">
-                <button onClick={this.onPlusClick}>+</button>
+                <button onClick={this.addPoint}>+</button>
                 <input
                     type="number"
                     value={this.props.value}
@@ -67,14 +73,8 @@ export default class Skill extends React.Component {
                     onBlur={this.onBlurInput}
                     style={{border: this.state.borderColor}}
                 />
-                <button onClick={this.onMinusClick}>-</button>
+                <button onClick={this.subPoint}>-</button>
             </div>
         </div>;
     }
 }
-
-Skill.propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    updatePointsStatus: PropTypes.func.isRequired,
-};
