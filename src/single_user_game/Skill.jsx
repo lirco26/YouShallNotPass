@@ -57,7 +57,7 @@ export default class Skill extends React.Component {
             <div className="skill-points">
                 <button onClick={this.addPoint}>+</button>
                 <input
-                    className={inputClassName}
+                    className={inputClassName + " skill-input"}
                     type="number"
                     value={this.props.pointsValue}
                     onChange={this.onInputChange}

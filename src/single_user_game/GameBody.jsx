@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './App.css';
+import '../App.css';
 import SkillsList from './SkillsList.jsx';
 import {PointsDescription, ErrorMessage, ControlButtonList} from './pointsControlComponents.jsx';
 import {getOneValueArray, splitAmountRandomly} from './mathUtils.js';
@@ -10,15 +9,14 @@ const INIT_SKILL_VALUE = 6;
 const SKILLS_VALUES = getOneValueArray(SKILLS_NAMES.length, INIT_SKILL_VALUE);
 const _ = require('lodash');
 
+const MIN_TOTAL_POINTS = 85;
+const MAX_TOTAL_POINTS = 89;
+
 export default class GameBody extends React.Component {
-    static propTypes = {
-        minTotalPoints: PropTypes.number.isRequired,
-        maxTotalPoints: PropTypes.number.isRequired,
-    };
 
     constructor(props) {
         super(props);
-        this.totalSkillPoints = _.random(this.props.minTotalPoints, this.props.maxTotalPoints);
+        this.totalSkillPoints = _.random(MIN_TOTAL_POINTS, MAX_TOTAL_POINTS);
         const skillsNamesToPoints = _.zipObject(SKILLS_NAMES, SKILLS_VALUES);
         this.state = {skillsNamesToPoints};
 
