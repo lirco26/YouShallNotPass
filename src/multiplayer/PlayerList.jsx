@@ -1,27 +1,26 @@
 import React, {useState} from 'react';
 
-import User from './User.jsx';
-// import triggeredAddUser from "./Presentor";
+import Player from './Player.jsx';
 
 
-export default function useUserList() {
-    const [userList, setUserList] = useState([]);
+function usePlayerList() {
+    const [playerList, setPlayerList] = useState([]);
 
-    function addUser(name, imageSrc, userClass) {
-        const newUser = <User
+    function addPlayer(name, imageSrc, playerClass) {
+        const newPlayer = <Player
             key={name}
             imageSrc={imageSrc}
             name={name}
-            userClass={userClass}
+            playerClass={playerClass}
         />;
-        setUserList(prevUserList => {
-            const newUserList = [...prevUserList];
-            newUserList.push(newUser);
-            return newUserList;
+        setPlayerList(prevPlayerList => {
+            const newPlayerList = [...prevPlayerList];
+            newPlayerList.push(newPlayer);
+            return newPlayerList;
         })
     }
 
-    return [userList, addUser];
+    return [playerList, addPlayer];
 }
 
 function AddPlayerButton({addPlayer}) {
@@ -29,24 +28,24 @@ function AddPlayerButton({addPlayer}) {
 }
 
 export function PresentComponent() {
-    const [isAddingPlayer, setIsAddingPlayer] = useState(false);
-    const [userList, addUser] = useUserList();
+    const [isPresenting, setIsPresenting] = useState(false);
+    const [playerList, addPlayer] = usePlayerList();
 
     function triggeredAddPlayer() {
-        setIsAddingPlayer(true);
+        setIsPresenting(true);
     }
 
     return <div>
-        {userList}
+        {playerList}
         <AddPlayerButton addPlayer={triggeredAddPlayer}/>
-        {isAddingPlayer && <AddPlayerForm addUser={(name, imageSrc, playerClass) => {
-            addUser(name, imageSrc, playerClass);
-            setIsAddingPlayer(false);
+        {isPresenting && <AddPlayerForm addPlayer={(name, imageSrc, playerClass) => {
+            addPlayer(name, imageSrc, playerClass);
+            setIsPresenting(false);
         }}/>}
     </div>;
 }
 
-function AddPlayerForm({addUser}) {
+function AddPlayerForm({addPlayer}) {
     const [name, setName] = useState('');
     const [playerClass, setClass] = useState('');
 
@@ -66,8 +65,8 @@ function AddPlayerForm({addUser}) {
         />
         <button onClick={() => {
             if (name && playerClass)
-                addUser(name, "", playerClass);
-        }}>Submit
+                addPlayer(name, "", playerClass);
+        }}> Submit
         </button>
     </div>
 }

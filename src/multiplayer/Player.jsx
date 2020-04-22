@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import GameBody from './single_user_game/GameBody.jsx';
 
-export default function User({name, imageSrc, userClass}) {
+export default function Player({name, imageSrc, playerClass}) {
     function openGameBodyForUser() {
     }
 
@@ -10,12 +10,12 @@ export default function User({name, imageSrc, userClass}) {
         <img src={imageSrc}/>
         <div className="user-details">
             <h2>{name}</h2>
-            {userClass}
+            {playerClass}
         </div>
     </button>;
 }
 
-User.propTypes = {
+Player.propTypes = {
     name: PropTypes.string.isRequired,
     imageSrc: PropTypes.string.isRequired,
     //userClass: PropTypes.oneOf() - typescipt enum here.
