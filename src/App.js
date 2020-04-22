@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import GameBody from './GameBody.jsx';
+import Player from "./multiplayer/Player";
+import TriggeredPresenter from "./multiplayer/TriggeredPresenter";
+//import GameBody from './GameBody.jsx';
 
 function App() {
   return <div>
         <h1>DND</h1>
-        <GameBody minTotalPoints={85} maxTotalPoints={89} />
+        <Player imageSrc="userImages/20181208_142655.jpg" name="LIR" playerClass="LIR" />
+        <TriggeredPresenter/>
     </div>;
 }
 
