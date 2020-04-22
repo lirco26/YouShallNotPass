@@ -24,7 +24,7 @@ function usePlayerList() {
 }
 
 function AddPlayerButton({addPlayer}) {
-    return <button onClick={addPlayer}> Add player </button>;
+    return <button className="add-player-button" onClick={addPlayer}> + Add player </button>;
 }
 
 export function PresentComponent() {
@@ -63,7 +63,7 @@ function AddPlayerForm({addPlayer}) {
             value={playerClass}
             onChange={event => setClass(event.target.value)}
         />
-        <button onClick={() => {
+        <button className="submit-button" onClick={() => {
             if (name && playerClass)
                 addPlayer(name, "", playerClass);
         }}> Submit

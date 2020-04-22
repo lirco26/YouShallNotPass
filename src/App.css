@@ -8,7 +8,7 @@ h1 {
     background: darkred;
     margin-top: 0;
     justify-content: center;
-    height: 10vh;
+    height: 15vh;
     align-items: center;
     font-size: 8vh;
     color: white;
@@ -33,7 +33,8 @@ h1 {
 
 }
 
-input {
+.skill-input {
+    font-size: 1em;
     text-align: center;
     width: 50px;
 }
@@ -73,4 +74,47 @@ input {
     font-size: 1.1em;
     color: red;
 
+}
+
+/* user */
+.user {
+    display: flex;
+    padding: 10px;
+    width: 200px;
+}
+
+.user-details {
+    padding-left: 10px;
+}
+
+img {
+    width: 8em;
+}
+
+
+/* opened card */
+.add-player {
+    position: fixed;
+    top: 30vh;
+    right: 20vw;
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+
+.add-player-input {
+    font-size: 0.8em;
+}
+
+.add-player-button {
+    font-size: 1.2em;
+    width: 200px;
+}
+
+.submit-button {
+    font-size: 0.8em;
+    margin-top: 15px;
+    width: 5em;
 }
