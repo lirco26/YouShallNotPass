@@ -4,7 +4,6 @@ import usePlayerList, {AddPlayerButton, AddPlayerForm} from './PlayerList.jsx';
 import GameBody from '../single_user_game/GameBody';
 
 
-
 /**
  * this component presents a triggered component:
  * A. An add-player-form
@@ -16,11 +15,10 @@ export default function TriggeredPresenter({gameBody}) {
     const [playerList, addPlayer] = usePlayerList();
 
     function triggeredAddPlayer() {
-        if(!isPresenting) {
+        if (!isPresenting) {
             setIsPresenting(true);
             setIsAddingPlayer(true);
-        }
-        else {
+        } else {
             alert('You cannot open another card. Submit your changes first and then start something else');
         }
     }
@@ -37,9 +35,14 @@ export default function TriggeredPresenter({gameBody}) {
         <h2> ALL PLAYERS: </h2>
         {playerList}
         <AddPlayerButton addPlayer={triggeredAddPlayer}/>
-        {isAddingPlayer && <AddPlayerForm addPlayer={(name, imageSrc, playerClass) => {
-            addPlayer(name, imageSrc, playerClass);
-            doneShowComponent();
-        }}/>}
+
+        {isAddingPlayer &&
+        <div>
+            <AddPlayerForm addPlayer={(name, imageSrc, playerClass) => {
+                addPlayer(name, imageSrc, playerClass);
+                doneShowComponent();
+            }}/>
+            <button className="add-player close-button" onClick={doneShowComponent}> X</button>
+        </div>}
     </div>;
 }

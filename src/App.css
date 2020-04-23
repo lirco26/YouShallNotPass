@@ -46,6 +46,9 @@ h1 {
 .game-body {
     display: flex;
     flex-direction: column;
+    position: fixed;
+    margin-left: 20vw;
+    top: 20vh;
 }
 
 .control-buttons {
@@ -102,6 +105,20 @@ img {
     align-items: center;
     flex-direction: column;
     font-size: 1.5em;
+}
+
+.close-button {
+    top: 25vh;
+    right: 15vw;
+    background: none;
+    border: none;
+    font-weight: bold;
+    background: ivory;
+}
+
+.close-button:hover {
+    transition: .5s;
+    color: red;
 }
 
 .add-player-input {
