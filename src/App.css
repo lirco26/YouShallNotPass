@@ -80,10 +80,15 @@ h1 {
 }
 
 /* user */
-.user {
+.user-card {
     display: flex;
     padding: 10px;
     width: 200px;
+}
+
+.pressed {
+    transition: .3s;
+    background: gray;
 }
 
 .user-details {
