@@ -34,6 +34,7 @@ export default function TriggeredPresenter({gameBody}) {
     }
 
     return <div>
+        <h2> ALL PLAYERS: </h2>
         {playerList}
         <AddPlayerButton addPlayer={triggeredAddPlayer}/>
         {isAddingPlayer && <AddPlayerForm addPlayer={(name, imageSrc, playerClass) => {
