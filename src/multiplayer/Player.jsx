@@ -14,8 +14,8 @@ export default function Player({name, imageSrc, playerClass}) {
     }
 
     return <div>
-        <button className={isGameBodyOpen? "user-card pressed" : "user-card"} onClick={openGameBodyForUser}>
-            <img src={imageSrc}/>
+        <button className={isGameBodyOpen ? "user-card pressed" : "user-card"} onClick={openGameBodyForUser}>
+            <img src={imageSrc} />
             <div className="user-details">
                 <h2>{name}</h2>
                 {playerClass}

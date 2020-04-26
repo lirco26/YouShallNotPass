@@ -34,15 +34,15 @@ export default function TriggeredPresenter({gameBody}) {
     return <div>
         <h2> ALL PLAYERS: </h2>
         {playerList}
-        <AddPlayerButton addPlayer={triggeredAddPlayer}/>
+        <AddPlayerButton addPlayer={triggeredAddPlayer} />
 
         {isAddingPlayer &&
         <div>
             <AddPlayerForm addPlayer={(name, imageSrc, playerClass) => {
                 addPlayer(name, imageSrc, playerClass);
                 doneShowComponent();
-            }}/>
-            <button className="add-player close-button" onClick={doneShowComponent}> X</button>
+            }} />
+            <button className="add-player close-button" onClick={doneShowComponent}> x </button>
         </div>}
     </div>;
 }

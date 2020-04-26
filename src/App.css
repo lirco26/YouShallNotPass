@@ -118,12 +118,13 @@ img {
     background: none;
     border: none;
     font-weight: bold;
-    background: ivory;
+    background: darkred;
+    color: white;
 }
 
 .close-button:hover {
     transition: .5s;
-    color: red;
+    color: silver;
 }
 
 .add-player-input {

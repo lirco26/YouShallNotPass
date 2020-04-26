@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../App.css';
 import SkillsList from './SkillsList.jsx';
 import {PointsDescription, ErrorMessage, ControlButtonList} from './pointsControlComponents.jsx';
@@ -12,6 +12,10 @@ const _ = require('lodash');
 const MIN_TOTAL_POINTS = 85;
 const MAX_TOTAL_POINTS = 89;
 
+const gameContext = React.createContext({});
+
+// should receive as props the class for the bonus and also an ID (name) so it can be changes from one to another
+// but maybe game body could be directly under player so that could be actually good
 export default class GameBody extends React.Component {
 
     constructor(props) {
