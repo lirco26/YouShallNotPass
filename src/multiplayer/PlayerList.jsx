@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import Player from './Player.jsx';
-import CLASSES from "./classes";
+import CLASSES from './classes';
 
 
 export default function usePlayerList() {
@@ -40,7 +40,7 @@ export function AddPlayerForm({addPlayer}) {
     const [name, setName] = useState('');
     const [playerClass, setClass] = useState(Object.keys(CLASSES)[0]);
 
-    return <div className="add-player">
+    return <div className="add-player-form">
         Name:
         <input
             className="add-player-input"

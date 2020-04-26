@@ -1,0 +1,59 @@
+.user-card {
+    display: flex;
+    padding: 10px;
+    width: 200px;
+}
+
+.pressed {
+    transition: .3s;
+    background: gray;
+}
+
+.user-details {
+    padding-left: 10px;
+}
+
+img {
+    width: 8em;
+}
+
+.add-player-form {
+    position: fixed;
+    top: 30vh;
+    right: 20vw;
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+
+.close-button {
+    top: 25vh;
+    right: 15vw;
+    background: none;
+    border: none;
+    font-weight: bold;
+    background: darkred;
+    color: white;
+}
+
+.close-button:hover {
+    transition: .5s;
+    color: silver;
+}
+
+.add-player-input {
+    font-size: 0.8em;
+}
+
+.add-player-button {
+    font-size: 1.2em;
+    width: 200px;
+}
+
+.submit-button {
+    font-size: 0.8em;
+    margin-top: 15px;
+    width: 5em;
+}

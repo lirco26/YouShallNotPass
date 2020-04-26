@@ -6,7 +6,7 @@ import SkillsList from './SkillsList.jsx';
 import {PointsDescription, ErrorMessage, GlobalButton} from './pointsControlComponents.jsx';
 import {getOneValueArray, splitAmountRandomly} from './mathUtils.js';
 import SKILLS from './skillsNames';
-import CLASSES from '../multiplayer/Classes';
+import CLASSES from '../multiplayer/classes';
 
 
 const SKILLS_NAMES = Object.keys(SKILLS);

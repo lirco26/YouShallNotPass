@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
 
 import usePlayerList, {AddPlayerButton, AddPlayerForm} from './PlayerList.jsx';
 import GameBody from '../single_user_game/GameBody';
@@ -42,7 +42,7 @@ export default function TriggeredPresenter({}) {
                 addPlayer(name, imageSrc, playerClass);
                 doneShowComponent();
             }} />
-            <button className="add-player close-button" onClick={doneShowComponent}> x </button>
+            <button className="add-player-form close-button" onClick={doneShowComponent}> x </button>
         </div>}
     </div>;
 }

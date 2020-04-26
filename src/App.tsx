@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import TriggeredPresenter from "./multiplayer/TriggeredPresenter";
-import GameBody from "./single_user_game/GameBody";
-
-//import GameBody from './GameBody.jsx';
+import './multiplayer.css'
+import TriggeredPresenter from './multiplayer/TriggeredPresenter';
+import GameBody from './single_user_game/GameBody';
 
 function App() {
     return <div>
         <h1>DND</h1>
-        <GameBody/>
+        <GameBody playerClass="Wizard" />
         <TriggeredPresenter />
     </div>;
 }

@@ -21,6 +21,20 @@ h1 {
     flex-direction: column;
 }
 
+.points-description {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2em;
+    margin-left: 20px;
+}
+
+.error-message {
+    text-align: center;
+    margin: 3vh 10vw 0;
+    font-size: 1.2em;
+    color: red;
+}
+
 .skills-list {
     width: 50vw;
     align-self: center;
@@ -67,83 +81,6 @@ h1 {
     width: 5em;
 }
 
-.points-description {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.2em;
-    margin-left: 20px;
-}
-
-.error-message {
-    text-align: center;
-    margin: 3vh 10vw 0;
-    font-size: 1.2em;
-    color: red;
-}
-
 .change-points-buttons {
     font-size: 1em;
-}
-
-/* user */
-.user-card {
-    display: flex;
-    padding: 10px;
-    width: 200px;
-}
-
-.pressed {
-    transition: .3s;
-    background: gray;
-}
-
-.user-details {
-    padding-left: 10px;
-}
-
-img {
-    width: 8em;
-}
-
-
-/* opened card */
-.add-player {
-    position: fixed;
-    top: 30vh;
-    right: 20vw;
-    margin: 30px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-size: 1.5em;
-}
-
-.close-button {
-    top: 25vh;
-    right: 15vw;
-    background: none;
-    border: none;
-    font-weight: bold;
-    background: darkred;
-    color: white;
-}
-
-.close-button:hover {
-    transition: .5s;
-    color: silver;
-}
-
-.add-player-input {
-    font-size: 0.8em;
-}
-
-.add-player-button {
-    font-size: 1.2em;
-    width: 200px;
-}
-
-.submit-button {
-    font-size: 0.8em;
-    margin-top: 15px;
-    width: 5em;
 }
