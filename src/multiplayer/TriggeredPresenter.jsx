@@ -9,7 +9,7 @@ import GameBody from '../single_user_game/GameBody';
  * A. An add-player-form
  * B. A player's game-body - [received as props to the component???]
  */
-export default function TriggeredPresenter({gameBody}) {
+export default function TriggeredPresenter({}) {
     const [isAddingPlayer, setIsAddingPlayer] = useState(false);
     const [isPresenting, setIsPresenting] = useState(false);
     const [playerList, addPlayer] = usePlayerList();

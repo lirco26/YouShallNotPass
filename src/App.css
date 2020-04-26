@@ -20,23 +20,23 @@ h1 {
     display: flex;
     justify-content: space-around;
     padding: 2vh 0;
+    font-size: 1.2em;
 }
 
 .skills-list {
     width: 50vw;
     align-self: center;
-    margin: 5vh 20vw;
+    margin: 5vh 0vw;
 }
 
 .skill-points {
     text-align: center;
-
 }
 
 .skill-input {
-    font-size: 1em;
     text-align: center;
     width: 50px;
+    font-size: 1em;
 }
 
 .invalid-input {
@@ -46,12 +46,9 @@ h1 {
 .game-body {
     display: flex;
     flex-direction: column;
-    position: fixed;
-    margin-left: 20vw;
-    top: 20vh;
 }
 
-.control-buttons {
+.global-buttons {
     display: flex;
     justify-content: space-around;
     margin-bottom: 40px;
@@ -59,8 +56,8 @@ h1 {
     align-self: center;
 }
 
-.control-button {
-    font-size: 1.2em;
+.global-button {
+    font-size: 1.5em;
     width: 5em;
 }
 
@@ -74,9 +71,12 @@ h1 {
 .error-message {
     text-align: center;
     margin: 3vh 10vw 0;
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: red;
+}
 
+.change-points-buttons {
+    font-size: 1em;
 }
 
 /* user */
