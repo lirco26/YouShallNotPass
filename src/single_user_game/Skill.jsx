@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {BONUS_SKILL_POINTS} from './GameBody.jsx';
+
 
 const MIN_POSSIBLE_POINTS = 6;
 const MAX_POSSIBLE_POINTS = 30;
@@ -10,6 +12,7 @@ export default class Skill extends React.Component {
         name: PropTypes.string.isRequired,
         pointsValue: PropTypes.number.isRequired,
         setPointsValue: PropTypes.func.isRequired,
+        isPrimary: PropTypes.bool.isRequired,
     };
 
     constructor(props) {
@@ -38,7 +41,13 @@ export default class Skill extends React.Component {
     }
 
     getFixedSkillPoints(value) {
-        return Math.min(MAX_POSSIBLE_POINTS, Math.max(MIN_POSSIBLE_POINTS, value));
+        let maxPossiblePoints = MAX_POSSIBLE_POINTS;
+        let minPossiblePoints = MIN_POSSIBLE_POINTS;
+        if (this.props.isPrimary) {
+            maxPossiblePoints += BONUS_SKILL_POINTS;
+            minPossiblePoints += BONUS_SKILL_POINTS;
+        }
+        return Math.min(maxPossiblePoints, Math.max(minPossiblePoints, value));
     }
 
     onInputChange(event) {
@@ -52,13 +61,14 @@ export default class Skill extends React.Component {
     }
 
     render() {
-        const className = 'skill-input';
+        const inputClassName = 'skill-input';
+
         return <div className="skill">
-            {this.props.name}
+            <span className={this.props.isPrimary ? 'primary-skill-name' : ''}>{this.props.name}</span>
             <div className="skill-points">
                 <button className="change-points-buttons" onClick={this.addPoint}>+</button>
                 <input
-                    className={this.isSkillPointsValid() ? className : `${className} invalid-input`}
+                    className={this.isSkillPointsValid() ? inputClassName : `${inputClassName} invalid-input`}
                     type="number"
                     value={this.props.pointsValue}
                     onChange={this.onInputChange}

@@ -4,7 +4,7 @@ import React from 'react';
 
 export function PointsDescription({totalPoints, freePoints}) {
     return <div className="points-description">
-        <span>Total skill points: {totalPoints} </span>
+        <span>Total skill points: {totalPoints} (+5) </span>
         <span>Free skill points: {freePoints}</span>
     </div>;
 }

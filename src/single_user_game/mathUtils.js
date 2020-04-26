@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 function getOneValueArray(length, value) {
     return new Array(length).fill(value);

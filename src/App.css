@@ -16,6 +16,17 @@ h1 {
     top: 0;
 }
 
+.game-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.skills-list {
+    width: 50vw;
+    align-self: center;
+    margin: 5vh 0vw;
+}
+
 .skill {
     display: flex;
     justify-content: space-around;
@@ -23,10 +34,10 @@ h1 {
     font-size: 1.2em;
 }
 
-.skills-list {
-    width: 50vw;
-    align-self: center;
-    margin: 5vh 0vw;
+.primary-skill-name {
+    font-weight: bold;
+    font-style: italic;
+    color: darkblue;
 }
 
 .skill-points {
@@ -41,11 +52,6 @@ h1 {
 
 .invalid-input {
     border: 2px solid red;
-}
-
-.game-body {
-    display: flex;
-    flex-direction: column;
 }
 
 .global-buttons {
