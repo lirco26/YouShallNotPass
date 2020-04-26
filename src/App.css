@@ -1,0 +1,80 @@
+body {
+    font-family: "Segoe UI";
+    background: floralwhite;
+}
+
+h1 {
+    display: flex;
+    background: darkred;
+    margin-top: 0;
+    justify-content: center;
+    height: 15vh;
+    align-items: center;
+    font-size: 8vh;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.skill {
+    display: flex;
+    justify-content: space-around;
+    padding: 2vh 0;
+    font-size: 1.2em;
+}
+
+.skills-list {
+    width: 50vw;
+    align-self: center;
+    margin: 5vh 0vw;
+}
+
+.skill-points {
+    text-align: center;
+}
+
+input {
+    text-align: center;
+    width: 50px;
+    font-size: 1em;
+}
+
+.invalid-input {
+    border: 2px solid red;
+}
+
+.game-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.global-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    width: 40vw;
+    align-self: center;
+}
+
+.global-button {
+    font-size: 1.5em;
+    width: 5em;
+}
+
+.points-description {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2em;
+    margin-left: 20px;
+}
+
+.error-message {
+    text-align: center;
+    margin: 3vh 10vw 0;
+    font-size: 1.2em;
+    color: red;
+}
+
+.change-points-buttons {
+    font-size: 1em;
+}
