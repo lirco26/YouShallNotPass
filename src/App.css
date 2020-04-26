@@ -8,7 +8,7 @@ h1 {
     background: darkred;
     margin-top: 0;
     justify-content: center;
-    height: 15vh;
+    height: 12vh;
     align-items: center;
     font-size: 8vh;
     color: white;
@@ -30,15 +30,16 @@ h1 {
 
 .error-message {
     text-align: center;
-    margin: 3vh 10vw 0;
+    margin: 3vh 10vw;
     font-size: 1.2em;
     color: red;
+    width: 40vw;
 }
 
 .skills-list {
     width: 50vw;
     align-self: center;
-    margin: 5vh 0vw;
+    margin: 0 0 5vh;
 }
 
 .skill {

@@ -23,7 +23,7 @@ export default function TriggeredPresenter({}) {
         }
     }
 
-    function doneShowComponent() {
+    function doneShowingComponent() {
         setIsPresenting(false);
         setIsAddingPlayer(false);
     }
@@ -40,9 +40,9 @@ export default function TriggeredPresenter({}) {
         <div>
             <AddPlayerForm addPlayer={(name, imageSrc, playerClass) => {
                 addPlayer(name, imageSrc, playerClass);
-                doneShowComponent();
+                doneShowingComponent();
             }} />
-            <button className="add-player-form close-button" onClick={doneShowComponent}> x </button>
+            <button className="add-player-form close-button" onClick={doneShowingComponent}> x </button>
         </div>}
     </div>;
 }

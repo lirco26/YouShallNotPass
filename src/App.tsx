@@ -7,7 +7,6 @@ import GameBody from './single_user_game/GameBody';
 function App() {
     return <div>
         <h1>DND</h1>
-        <GameBody playerClass="Wizard" />
         <TriggeredPresenter />
     </div>;
 }

@@ -12,15 +12,26 @@ export default function Player({name, imageSrc, playerClass}) {
         setIsGameBodyOpen(true);
     }
 
+    function doneShowingComponent() {
+        setIsGameBodyOpen(false);
+    }
+
     return <div>
         <button className={isGameBodyOpen ? 'user-card pressed' : 'user-card'} onClick={openGameBodyForUser}>
-            <img src={imageSrc} />
+            <img src={imageSrc}/>
             <div className="user-details">
                 <h2>{name}</h2>
                 {playerClass}
             </div>
         </button>
-        {isGameBodyOpen && <GameBody playerName={name} playerClass={playerClass}/>}
+        {isGameBodyOpen && <div className="player-game-body">
+            <button className="close-button close-button-game-body" onClick={doneShowingComponent}> x </button>
+            <GameBody playerName={name} playerClass={playerClass}/>
+            <button className="global-button" onClick={() => {
+                doneShowingComponent()
+            }}> Submit
+            </button>
+        </div>}
     </div>;
 }
 

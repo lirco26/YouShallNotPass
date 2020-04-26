@@ -52,7 +52,7 @@ export function AddPlayerForm({addPlayer}) {
             className="add-player-input"
             onChange={event => setClass(event.target.value)}>
             {Object.keys(CLASSES).map(key =>
-                <option value={key}> {key} </option>
+                <option key={key} value={key}> {key} </option>
             )}
         </select>
         <button className="submit-button" onClick={() => {
