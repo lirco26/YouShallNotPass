@@ -8,7 +8,7 @@ h1 {
     background: darkred;
     margin-top: 0;
     justify-content: center;
-    height: 10vh;
+    height: 15vh;
     align-items: center;
     font-size: 8vh;
     color: white;
@@ -20,22 +20,23 @@ h1 {
     display: flex;
     justify-content: space-around;
     padding: 2vh 0;
+    font-size: 1.2em;
 }
 
 .skills-list {
     width: 50vw;
     align-self: center;
-    margin: 5vh 20vw;
+    margin: 5vh 0vw;
 }
 
 .skill-points {
     text-align: center;
-
 }
 
 input {
     text-align: center;
     width: 50px;
+    font-size: 1em;
 }
 
 .invalid-input {
@@ -47,7 +48,7 @@ input {
     flex-direction: column;
 }
 
-.control-buttons {
+.global-buttons {
     display: flex;
     justify-content: space-around;
     margin-bottom: 40px;
@@ -55,8 +56,8 @@ input {
     align-self: center;
 }
 
-.control-button {
-    font-size: 1.2em;
+.global-button {
+    font-size: 1.5em;
     width: 5em;
 }
 
@@ -70,7 +71,10 @@ input {
 .error-message {
     text-align: center;
     margin: 3vh 10vw 0;
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: red;
+}
 
+.change-points-buttons {
+    font-size: 1em;
 }
