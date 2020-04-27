@@ -7,17 +7,19 @@ import CLASSES from './classes';
 export default function usePlayerList() {
     const [playerList, setPlayerList] = useState([]);
 
-    function addPlayer(name, imageSrc, playerClass) {
+    function addPlayer(name, imageSrc, playerClass, editGameBody, doneEditingGameBody) {
         if (playerList.map(player => player.key).includes(name)) {
             alert('This name already exists. Please choose another name');
-        }
-        else {
-            const newPlayer = <Player
-                key={name}
-                imageSrc={imageSrc}
-                name={name}
-                playerClass={playerClass}
-            />;
+        } else {
+            // const newPlayer = <Player
+            //     key={name}
+            //     imageSrc={imageSrc}
+            //     name={name}
+            //     playerClass={playerClass}
+            //     editGameBody={editGameBody}
+            //     doneEditingGameBody={doneEditingGameBody}
+            // />;
+            const newPlayer = {name, imageSrc, playerClass, editGameBody, doneEditingGameBody};
             setPlayerList(prevPlayerList => {
                 const newPlayerList = [...prevPlayerList];
                 newPlayerList.push(newPlayer);
