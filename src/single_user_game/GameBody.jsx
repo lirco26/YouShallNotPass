@@ -12,8 +12,8 @@ import CLASSES from '../multiplayer/classes';
 const SKILLS_NAMES = Object.keys(SKILLS);
 const INIT_SKILL_VALUE = 6;
 
-const MIN_TOTAL_POINTS = 85;
-const MAX_TOTAL_POINTS = 89;
+export const MIN_TOTAL_POINTS = 85;
+export const MAX_TOTAL_POINTS = 89;
 
 const CLASS_TO_PRIMARY_SKILL = {
     [CLASSES.Warrior]: SKILLS.STR,
@@ -36,8 +36,7 @@ export default class GameBody extends React.Component {
 
     constructor(props) {
         super(props);
-        this.totalSkillPoints = _.random(MIN_TOTAL_POINTS, MAX_TOTAL_POINTS);
-        this.totalSkillPointsWithBonus = this.totalSkillPoints + BONUS_SKILL_POINTS;
+        this.totalSkillPointsWithBonus = this.props.totalSkillPoints + BONUS_SKILL_POINTS;
         this.primarySkill = CLASS_TO_PRIMARY_SKILL[this.props.playerClass];
 
         this.getFreePoints = this.getFreePoints.bind(this);
@@ -47,7 +46,10 @@ export default class GameBody extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setSkillNameToPoints(this.getInitialSkillNameToPoints());
+        // If this is the first time that this component mounted:
+        if(Object.keys(this.props.skillNameToPoints).length === 0) {
+            this.props.setSkillNameToPoints(this.getInitialSkillNameToPoints());
+        }
     }
 
     getInitialSkillNameToPoints() {
@@ -74,7 +76,7 @@ export default class GameBody extends React.Component {
     }
 
     onRandomClick() {
-        const randomPoints = splitAmountRandomly(this.totalSkillPoints, SKILLS_NAMES.length, 6, 30);
+        const randomPoints = splitAmountRandomly(this.props.totalSkillPoints, SKILLS_NAMES.length, 6, 30);
         const skillNameToPoints = _.zipObject(SKILLS_NAMES, randomPoints);
         skillNameToPoints[this.primarySkill] += BONUS_SKILL_POINTS;
         this.props.setSkillNameToPoints(skillNameToPoints);
@@ -83,7 +85,7 @@ export default class GameBody extends React.Component {
     render() {
         return <div className="game-body">
             <h2>{this.props.playerName} - {this.props.playerClass}</h2>
-            <PointsDescription totalPoints={this.totalSkillPoints} freePoints={this.getFreePoints()} />
+            <PointsDescription totalPoints={this.props.totalSkillPoints} freePoints={this.getFreePoints()} />
             <ErrorMessage freePoints={this.getFreePoints()} />
             <SkillsList
                 setSkillPoints={this.setSkillPoints}
