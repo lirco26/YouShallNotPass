@@ -30,6 +30,8 @@ export default class GameBody extends React.Component {
     static propTypes = {
         playerName: PropTypes.string.isRequired,
         playerClass: PropTypes.oneOf(Object.keys(CLASSES)).isRequired,
+        skillNameToPoints: PropTypes.object.isRequired,
+        setSkillNameToPoints: PropTypes.func.isRequired,
     };
 
     constructor(props) {
@@ -38,44 +40,44 @@ export default class GameBody extends React.Component {
         this.totalSkillPointsWithBonus = this.totalSkillPoints + BONUS_SKILL_POINTS;
         this.primarySkill = CLASS_TO_PRIMARY_SKILL[this.props.playerClass];
 
-        this.state = this.getInitialState();
-
         this.getFreePoints = this.getFreePoints.bind(this);
         this.setSkillPoints = this.setSkillPoints.bind(this);
         this.onResetClick = this.onResetClick.bind(this);
         this.onRandomClick = this.onRandomClick.bind(this);
     }
 
-    getInitialState() {
+    componentDidMount() {
+        this.props.setSkillNameToPoints(this.getInitialSkillNameToPoints());
+    }
+
+    getInitialSkillNameToPoints() {
         const skillsValues = getOneValueArray(SKILLS_NAMES.length, INIT_SKILL_VALUE);
         const skillNameToPoints = _.zipObject(SKILLS_NAMES, skillsValues);
         skillNameToPoints[this.primarySkill] += BONUS_SKILL_POINTS;
-        return {skillNameToPoints};
+        return skillNameToPoints;
     }
 
     getFreePoints() {
-        const skillsValues = Object.values(this.state.skillNameToPoints);
+        const skillsValues = Object.values(this.props.skillNameToPoints);
         const pointsUsed = _.sum(skillsValues);
         return this.totalSkillPointsWithBonus - pointsUsed;
     }
 
     setSkillPoints(skillName, newValue) {
-        this.setState(prevState => {
-            const skillNameToPoints = {...prevState.skillNameToPoints};
-            skillNameToPoints[skillName] = newValue;
-            return {skillNameToPoints};
-        })
+        const skillNameToPoints = {...this.props.skillNameToPoints};
+        skillNameToPoints[skillName] = newValue;
+        this.props.setSkillNameToPoints(skillNameToPoints);
     }
 
     onResetClick() {
-        this.setState(this.getInitialState());
+        this.props.setSkillNameToPoints(this.getInitialSkillNameToPoints());
     }
 
     onRandomClick() {
         const randomPoints = splitAmountRandomly(this.totalSkillPoints, SKILLS_NAMES.length, 6, 30);
         const skillNameToPoints = _.zipObject(SKILLS_NAMES, randomPoints);
         skillNameToPoints[this.primarySkill] += BONUS_SKILL_POINTS;
-        this.setState({skillNameToPoints});
+        this.props.setSkillNameToPoints(skillNameToPoints);
     }
 
     render() {
@@ -85,7 +87,7 @@ export default class GameBody extends React.Component {
             <ErrorMessage freePoints={this.getFreePoints()} />
             <SkillsList
                 setSkillPoints={this.setSkillPoints}
-                skillNameToPoints={this.state.skillNameToPoints}
+                skillNameToPoints={this.props.skillNameToPoints}
                 primarySkill={this.primarySkill}
             />
             <div className="global-buttons">
