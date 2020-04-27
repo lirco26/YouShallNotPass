@@ -27,7 +27,7 @@ export default function Player({name, imageSrc, playerClass}) {
         </button>
         {isGameBodyOpen &&
         <div className="player-game-body">
-            <button className="close-button close-button-game-body" onClick={doneShowingComponent}> x </button>
+            <button className="close-button player-game-body" onClick={doneShowingComponent}> x </button>
             <GameBody
                 playerName={name}
                 playerClass={playerClass}

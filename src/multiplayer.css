@@ -64,14 +64,6 @@ img {
     flex-direction: column;
     align-items: center;
     position: fixed;
-    overflow: auto;
-    max-height: 85vh;
     right: 5vw;
-    top: 12vh;
-}
-
-
-.close-button-game-body {
-    margin-top: 10vh;
-    margin-right: 10vw;
+    top: 15vh;
 }
