@@ -18,7 +18,6 @@ export default function usePlayerList() {
                 name={name}
                 playerClass={playerClass}
             />;
-            console.log((newPlayer.key));
             setPlayerList(prevPlayerList => {
                 const newPlayerList = [...prevPlayerList];
                 newPlayerList.push(newPlayer);

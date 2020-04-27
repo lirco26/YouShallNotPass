@@ -21,7 +21,7 @@ export function ErrorMessage({freePoints}) {
         errorMessage = `You still have points to hand out to your skills.
                         Please fix this and make sure free points gets to zero.`;
     } else if (freePoints < 0) {
-        errorMessage = `You handed out too many points. You don\'t have that much.
+        errorMessage = `You handed out too many points. You don't have that much.
                         Please fix this and make sure free points gets to zero.`;
     }
 

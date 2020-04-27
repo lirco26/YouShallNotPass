@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {BONUS_SKILL_POINTS} from './GameBody.jsx';
+import {GAME_SETTINGS} from './GameBody.jsx';
 
-
-const MIN_POSSIBLE_POINTS = 6;
-const MAX_POSSIBLE_POINTS = 30;
 
 export default class Skill extends React.Component {
     static propTypes = {
@@ -41,11 +38,11 @@ export default class Skill extends React.Component {
     }
 
     getFixedSkillPoints(value) {
-        let maxPossiblePoints = MAX_POSSIBLE_POINTS;
-        let minPossiblePoints = MIN_POSSIBLE_POINTS;
+        let maxPossiblePoints = GAME_SETTINGS.MAX_TOTAL_POINTS;
+        let minPossiblePoints = GAME_SETTINGS.MIN_SKILL_POINTS;
         if (this.props.isPrimary) {
-            maxPossiblePoints += BONUS_SKILL_POINTS;
-            minPossiblePoints += BONUS_SKILL_POINTS;
+            maxPossiblePoints += GAME_SETTINGS.BONUS_SKILL_POINTS;
+            minPossiblePoints += GAME_SETTINGS.BONUS_SKILL_POINTS;
         }
         return Math.min(maxPossiblePoints, Math.max(minPossiblePoints, value));
     }
