@@ -35,7 +35,7 @@ img {
     font-weight: bold;
     background: darkred;
     color: white;
-    font-size: 1em;
+    font-size: 0.8em;
     align-self: flex-end;
 }
 
@@ -46,6 +46,12 @@ img {
 
 .add-player-input {
     font-size: 0.8em;
+    width: 7em;
+}
+
+.field-input {
+    display: flex;
+    flex-direction: column;
 }
 
 .add-player-button {

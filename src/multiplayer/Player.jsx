@@ -1,22 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import CLASSES from './classes';
-import GameBody, {GAME_SETTINGS} from '../single_user_game/GameBody.jsx';
+import PlayerEditor, {GAME_SETTINGS} from '../singleplayer/PlayerEditor.jsx';
+import {SubmitButton} from "./AddPlayerForm";
 
 
-export default function Player({name, imageSrc, playerClass}) {
-    const [isGameBodyOpen, setIsGameBodyOpen] = useState(false);
+export default function Player({name, imageSrc, playerClass, editPlayer, doneEditingPlayer}) {
+    const [isPlayerEditorOpen, setIsPlayerEditorOpen] = useState(true);
     const [skillNameToPoints, setSkillNameToPoints] = useState({});
     const totalPoints = useState(_.random(GAME_SETTINGS.MIN_TOTAL_POINTS, GAME_SETTINGS.MAX_TOTAL_POINTS))[0];
 
-    function openGameBodyForUser() {
-        setIsGameBodyOpen(true);
+    useEffect(()=> {
+        editPlayer();
+    }, [editPlayer]);
+
+    function openEditorForPlayer() {
+        if (editPlayer()) {
+            setIsPlayerEditorOpen(true);
+        }
     }
 
     function doneShowingComponent() {
-        setIsGameBodyOpen(false);
+        setIsPlayerEditorOpen(false);
+        doneEditingPlayer();
     }
 
     function getFreePoints() {
@@ -26,24 +34,24 @@ export default function Player({name, imageSrc, playerClass}) {
     function submit() {
         if (getFreePoints() === 0) {
             doneShowingComponent();
-        }
-        else {
+        } else {
             alert('You cannot submit your changes if free points isn\'t 0');
         }
     }
 
     return <div>
-        <button className={isGameBodyOpen ? 'user-card pressed' : 'user-card'} onClick={openGameBodyForUser}>
-            <img src={imageSrc} alt="player's profile"/>
-            <div className="user-details">
-                <h2>{name}</h2>
-                {playerClass}
-            </div>
-        </button>
-        {isGameBodyOpen &&
+        <PlayerCard
+            name={name}
+            imageSrc={imageSrc}
+            playerClass={playerClass}
+            isPlayerEditorOpen={isPlayerEditorOpen}
+            onClick={openEditorForPlayer}
+        />
+        {isPlayerEditorOpen &&
+
         <div className="player-game-body">
-            <button className="close-button player-game-body" onClick={doneShowingComponent}> x</button>
-            <GameBody
+            <button className="close-button player-game-body" onClick={doneShowingComponent}> x </button>
+            <PlayerEditor
                 playerName={name}
                 playerClass={playerClass}
                 totalSkillPoints={totalPoints}
@@ -51,10 +59,7 @@ export default function Player({name, imageSrc, playerClass}) {
                 skillNameToPoints={skillNameToPoints}
                 setSkillNameToPoints={setSkillNameToPoints}
             />
-            <button className="global-button" onClick={() => {
-                submit();
-            }}> Submit
-            </button>
+            <SubmitButton className="global-button" submitFunction={submit} />
         </div>}
     </div>;
 }
@@ -62,5 +67,35 @@ export default function Player({name, imageSrc, playerClass}) {
 Player.propTypes = {
     name: PropTypes.string.isRequired,
     imageSrc: PropTypes.string.isRequired,
-    playerClass: PropTypes.oneOf(Object.keys(CLASSES)),
+    playerClass: PropTypes.oneOf(Object.keys(CLASSES)).isRequired,
+    editPlayer: PropTypes.func.isRequired,
+    doneEditingPlayer: PropTypes.func.isRequired,
+};
+
+export class PlayerObject {
+    constructor(name, imageSrc, playerClass, editPlayer, doneEditingPlayer) {
+        this.name = name;
+        this.imageSrc = imageSrc;
+        this.playerClass = playerClass;
+        this.editPlayer = editPlayer.bind(this);
+        this.doneEditingPlayer = doneEditingPlayer.bind(this);
+    }
+}
+
+function PlayerCard({name, imageSrc, playerClass, isPlayerEditorOpen, onClick}) {
+    return <button className={isPlayerEditorOpen ? 'user-card pressed' : 'user-card'} onClick={onClick}>
+        <img src={imageSrc} alt="player's profile"/>
+        <div className="user-details">
+            <h2>{name}</h2>
+            {playerClass}
+        </div>
+    </button>;
+}
+
+PlayerCard.propTypes = {
+    name: PropTypes.string.isRequired,
+    imageSrc: PropTypes.string.isRequired,
+    playerClass: PropTypes.oneOf(Object.keys(CLASSES)).isRequired,
+    isPlayerEditorOpen: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
 };

@@ -1,23 +1,18 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
-import Player from './Player.jsx';
-import CLASSES from './classes';
+import Player, {PlayerObject} from './Player.jsx';
 
 
-export default function usePlayerList() {
+export function usePlayerList() {
     const [playerList, setPlayerList] = useState([]);
+    const NAME_EXISTS_ERROR_MESSAGE = 'This name already exists. Please choose another name';
 
-    function addPlayer(name, imageSrc, playerClass) {
+    function addPlayer(name, imageSrc, playerClass, editPlayer, doneEditingPlayer) {
         if (playerList.map(player => player.key).includes(name)) {
-            alert('This name already exists. Please choose another name');
-        }
-        else {
-            const newPlayer = <Player
-                key={name}
-                imageSrc={imageSrc}
-                name={name}
-                playerClass={playerClass}
-            />;
+            alert(NAME_EXISTS_ERROR_MESSAGE);
+        } else {
+            const newPlayer = new PlayerObject(name, imageSrc, playerClass, editPlayer, doneEditingPlayer);
             setPlayerList(prevPlayerList => {
                 const newPlayerList = [...prevPlayerList];
                 newPlayerList.push(newPlayer);
@@ -25,39 +20,23 @@ export default function usePlayerList() {
             })
         }
     }
-
     return [playerList, addPlayer];
 }
 
-export function AddPlayerButton({addPlayer}) {
-    return <button className="add-player-button" onClick={addPlayer}>
-        + Add player
-    </button>;
+export default function PlayerList({listOfPlayers}) {
+    return <div>
+        <h2> ALL PLAYERS: </h2>
+        {listOfPlayers.map(player => <Player
+            key={player.name}
+            imageSrc={player.imageSrc}
+            name={player.name}
+            playerClass={player.playerClass}
+            editPlayer={player.editPlayer}
+            doneEditingPlayer={player.doneEditingPlayer}
+        />)}
+    </div>;
 }
 
-export function AddPlayerForm({addPlayer}) {
-    const [name, setName] = useState('');
-    const [playerClass, setClass] = useState(Object.keys(CLASSES)[0]);
-
-    return <div className="add-player-form">
-        Name:
-        <input
-            className="add-player-input"
-            type="text" value={name}
-            onChange={event => setName(event.target.value)}
-        />
-        Class:
-        <select
-            className="add-player-input"
-            onChange={event => setClass(event.target.value)}>
-            {Object.keys(CLASSES).map(key =>
-                <option key={key} value={key}> {key} </option>
-            )}
-        </select>
-        <button className="submit-button" onClick={() => {
-            if (name && playerClass)
-                addPlayer(name.toUpperCase(), `userImages/${playerClass}.jpeg`, playerClass);
-        }}> Submit
-        </button>
-    </div>
-}
+PlayerList.propTypes = {
+    listOfPlayers: PropTypes.arrayOf(PropTypes.shape(Player)).isRequired,
+};
