@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import CLASSES from './classes';
 import PlayerEditor, {GAME_SETTINGS} from '../singleplayer/PlayerEditor.jsx';
-import {SubmitButton} from "./AddPlayerForm";
+import {SubmitButton} from './AddPlayerForm.jsx';
 
 
 export default function Player({name, imageSrc, playerClass, editPlayer, doneEditingPlayer}) {
@@ -22,7 +22,7 @@ export default function Player({name, imageSrc, playerClass, editPlayer, doneEdi
         }
     }
 
-    function doneShowingComponent() {
+    function closeEditorForPlayer() {
         setIsPlayerEditorOpen(false);
         doneEditingPlayer();
     }
@@ -33,7 +33,7 @@ export default function Player({name, imageSrc, playerClass, editPlayer, doneEdi
 
     function submit() {
         if (getFreePoints() === 0) {
-            doneShowingComponent();
+            closeEditorForPlayer();
         } else {
             alert('You cannot submit your changes if free points isn\'t 0');
         }
@@ -47,10 +47,10 @@ export default function Player({name, imageSrc, playerClass, editPlayer, doneEdi
             isPlayerEditorOpen={isPlayerEditorOpen}
             onClick={openEditorForPlayer}
         />
-        {isPlayerEditorOpen &&
 
+        {isPlayerEditorOpen &&
         <div className="player-game-body">
-            <button className="close-button player-game-body" onClick={doneShowingComponent}> x </button>
+            <button className="close-button player-game-body" onClick={closeEditorForPlayer}> x </button>
             <PlayerEditor
                 playerName={name}
                 playerClass={playerClass}
@@ -72,15 +72,6 @@ Player.propTypes = {
     doneEditingPlayer: PropTypes.func.isRequired,
 };
 
-export class PlayerObject {
-    constructor(name, imageSrc, playerClass, editPlayer, doneEditingPlayer) {
-        this.name = name;
-        this.imageSrc = imageSrc;
-        this.playerClass = playerClass;
-        this.editPlayer = editPlayer.bind(this);
-        this.doneEditingPlayer = doneEditingPlayer.bind(this);
-    }
-}
 
 function PlayerCard({name, imageSrc, playerClass, isPlayerEditorOpen, onClick}) {
     return <button className={isPlayerEditorOpen ? 'user-card pressed' : 'user-card'} onClick={onClick}>
@@ -99,3 +90,14 @@ PlayerCard.propTypes = {
     isPlayerEditorOpen: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
 };
+
+
+export class PlayerObject {
+    constructor(name, imageSrc, playerClass, editPlayer, doneEditingPlayer) {
+        this.name = name;
+        this.imageSrc = imageSrc;
+        this.playerClass = playerClass;
+        this.editPlayer = editPlayer.bind(this);
+        this.doneEditingPlayer = doneEditingPlayer.bind(this);
+    }
+}

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-function getOneValueArray(length, value) {
+export function getOneValueArray(length, value) {
     return new Array(length).fill(value);
 }
 
@@ -11,7 +11,7 @@ function getOneValueArray(length, value) {
  * @param maxValue per cell
  * @return array of the total amount divided to (numOfCells) cells
  */
-function splitAmountRandomly(totalAmount, numOfCells, minValue, maxValue) {
+export function splitAmountRandomly(totalAmount, numOfCells, minValue, maxValue) {
     const amountDivision = getOneValueArray(minValue, numOfCells);
     let amountLeft = totalAmount - minValue * numOfCells;
     while (amountLeft > 0) {
@@ -24,5 +24,3 @@ function splitAmountRandomly(totalAmount, numOfCells, minValue, maxValue) {
     }
     return _.shuffle(amountDivision);
 }
-
-export {getOneValueArray, splitAmountRandomly};

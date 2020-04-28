@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import CLASSES from './classes';
 import PropTypes from 'prop-types';
+
+import CLASSES from './classes';
+
 
 export function AddPlayerButton({addPlayer}) {
     return <button className="add-player-button" onClick={addPlayer}>
