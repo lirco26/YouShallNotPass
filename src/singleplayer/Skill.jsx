@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {GAME_SETTINGS} from './GameBody.jsx';
+import {GAME_SETTINGS} from './PlayerEditor.jsx';
 
 
 export default class Skill extends React.Component {

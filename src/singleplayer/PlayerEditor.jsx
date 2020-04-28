@@ -29,7 +29,7 @@ const CLASS_TO_PRIMARY_SKILL = {
 };
 
 
-export default class GameBody extends React.Component {
+export default class PlayerEditor extends React.Component {
     static propTypes = {
         playerName: PropTypes.string.isRequired,
         playerClass: PropTypes.oneOf(Object.keys(CLASSES)).isRequired,
