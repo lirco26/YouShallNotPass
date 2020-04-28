@@ -1,33 +1,53 @@
 import React, {useState} from 'react';
 
-import usePlayerList, {AddPlayerButton, AddPlayerForm} from './PlayerList.jsx';
+import PlayerList, {usePlayerList} from './PlayerList.jsx';
+import AddPlayerForm, {AddPlayerButton} from './AddPlayerForm.jsx';
 
 
-export default function TriggeredAddingPlayer() {
+export default function TriggeredPlayerManager() {
     const [isAddingPlayer, setIsAddingPlayer] = useState(false);
-    const [isEditingGameBody, setIsEditingGameBody] = useState(false);
+    const [isEditingPlayer, setIsEditingPlayer] = useState(false);
     const [playerList, addPlayer] = usePlayerList();
+    const ALREADY_PRESENTING_ERROR_MESSAGE = 111;
 
     function triggeredAddPlayer() {
-        setIsAddingPlayer(true);
+        if (!isEditingPlayer && !isAddingPlayer) {
+            setIsAddingPlayer(true);
+        } else {
+            alert(ALREADY_PRESENTING_ERROR_MESSAGE)
+        }
     }
 
-    function doneShowingComponent() {
+    function doneAddingPlayer() {
         setIsAddingPlayer(false);
     }
 
-    return <div>
-        <h2> ALL PLAYERS: </h2>
-        {playerList}
-        <AddPlayerButton addPlayer={triggeredAddPlayer} />
+    function triggeredEditPlayer() {
+        // setIsEditingPlayer(true);
+        // return true;
+        if (!isEditingPlayer && !isAddingPlayer) {
+            setIsEditingPlayer(true);
+            return true
+        } else {
+            alert(ALREADY_PRESENTING_ERROR_MESSAGE);
+            return false;
+        }
+    }
 
+    function doneEditingPlayer() {
+        setIsEditingPlayer(false);
+    }
+
+    const addPlayerWithForm = function (name, imageSrc, playerClass) {
+        addPlayer(name, imageSrc, playerClass, triggeredEditPlayer, doneEditingPlayer);
+        doneAddingPlayer();
+    };
+
+    return <div>
+        <PlayerList listOfPlayers={playerList} />
+        <AddPlayerButton addPlayer={triggeredAddPlayer} />
         {isAddingPlayer &&
-        <div>
-            <AddPlayerForm addPlayer={(name, imageSrc, playerClass, editGameBody) => {
-                addPlayer(name, imageSrc, playerClass);
-                doneShowingComponent();
-            }} />
-            <button className="add-player-form close-button" onClick={doneShowingComponent}> x </button>
-        </div>}
+        <AddPlayerForm addPlayer={addPlayerWithForm} doneAddingPlayer={doneAddingPlayer} />
+        }
     </div>;
 }
