@@ -17,9 +17,10 @@ export function usePlayerList() {
                 const newPlayerList = [...prevPlayerList];
                 newPlayerList.push(newPlayer);
                 return newPlayerList;
-            })
+            });
         }
     }
+
     return [playerList, addPlayer];
 }
 

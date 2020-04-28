@@ -38,16 +38,16 @@ export default function TriggeredPlayerManager() {
         setIsEditingPlayer(false);
     }
 
-    const addPlayerWithForm = function (name, imageSrc, playerClass) {
+    function addPlayerEvents (name, imageSrc, playerClass) {
         addPlayer(name, imageSrc, playerClass, triggeredEditPlayer, doneEditingPlayer);
         doneAddingPlayer();
-    };
+    }
 
     return <div>
         <PlayerList listOfPlayers={playerList} />
         <AddPlayerButton addPlayer={triggeredAddPlayer} />
         {isAddingPlayer &&
-        <AddPlayerForm addPlayer={addPlayerWithForm} doneAddingPlayer={doneAddingPlayer} />
+        <AddPlayerForm addPlayer={addPlayerEvents} doneAddingPlayer={doneAddingPlayer} />
         }
     </div>;
 }
