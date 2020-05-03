@@ -7,24 +7,38 @@ import PlayerEditor, {GAME_SETTINGS} from '../singleplayer/PlayerEditor.jsx';
 import {SubmitButton} from './AddPlayerForm.jsx';
 
 
-export default function Player({name, imageSrc, playerClass, editPlayer, doneEditingPlayer}) {
+export default function Player({name, imageSrc, playerClass, present, stopPresenting}) {
     const [isPlayerEditorOpen, setIsPlayerEditorOpen] = useState(true);
     const [skillNameToPoints, setSkillNameToPoints] = useState({});
     const totalPoints = useState(_.random(GAME_SETTINGS.MIN_TOTAL_POINTS, GAME_SETTINGS.MAX_TOTAL_POINTS))[0];
 
-    useEffect(()=> {
-        editPlayer();
-    }, [editPlayer]);
+    function getEditor() {
+        return <div className="player-game-body">
+            {/*<button className="close-button player-game-body" onClick={closeEditorForPlayer}> x </button>*/}
+            <PlayerEditor
+                playerName={name}
+                playerClass={playerClass}
+                totalSkillPoints={totalPoints}
+                freePoints={getFreePoints()}
+                skillNameToPoints={skillNameToPoints}
+                setSkillNameToPoints={setSkillNameToPoints}
+            />
+            <SubmitButton className="global-button" submitFunction={submit} />
+        </div>;
+    }
+
+    useEffect(() => {
+        openEditorForPlayer();
+    }, []);
 
     function openEditorForPlayer() {
-        if (editPlayer()) {
-            setIsPlayerEditorOpen(true);
-        }
+        setIsPlayerEditorOpen(true);
+        present(getEditor());
     }
 
     function closeEditorForPlayer() {
         setIsPlayerEditorOpen(false);
-        doneEditingPlayer();
+        stopPresenting();
     }
 
     function getFreePoints() {
@@ -47,20 +61,6 @@ export default function Player({name, imageSrc, playerClass, editPlayer, doneEdi
             isPlayerEditorOpen={isPlayerEditorOpen}
             onClick={openEditorForPlayer}
         />
-
-        {isPlayerEditorOpen &&
-        <div className="player-game-body">
-            <button className="close-button player-game-body" onClick={closeEditorForPlayer}> x </button>
-            <PlayerEditor
-                playerName={name}
-                playerClass={playerClass}
-                totalSkillPoints={totalPoints}
-                freePoints={getFreePoints()}
-                skillNameToPoints={skillNameToPoints}
-                setSkillNameToPoints={setSkillNameToPoints}
-            />
-            <SubmitButton className="global-button" submitFunction={submit} />
-        </div>}
     </div>;
 }
 
@@ -68,8 +68,8 @@ Player.propTypes = {
     name: PropTypes.string.isRequired,
     imageSrc: PropTypes.string.isRequired,
     playerClass: PropTypes.oneOf(Object.keys(CLASSES)).isRequired,
-    editPlayer: PropTypes.func.isRequired,
-    doneEditingPlayer: PropTypes.func.isRequired,
+    present: PropTypes.func.isRequired,
+    stopPresenting: PropTypes.func.isRequired,
 };
 
 
@@ -93,11 +93,11 @@ PlayerCard.propTypes = {
 
 
 export class PlayerObject {
-    constructor(name, imageSrc, playerClass, editPlayer, doneEditingPlayer) {
+    constructor(name, imageSrc, playerClass, present, stopPresenting) {
         this.name = name;
         this.imageSrc = imageSrc;
         this.playerClass = playerClass;
-        this.editPlayer = editPlayer.bind(this);
-        this.doneEditingPlayer = doneEditingPlayer.bind(this);
+        this.present = present.bind(this);
+        this.stopPresenting = stopPresenting.bind(this);
     }
 }

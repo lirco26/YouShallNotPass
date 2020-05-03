@@ -18,19 +18,18 @@ img {
 }
 
 .add-player-form {
-    position: fixed;
-    top: 30vh;
-    right: 20vw;
-    margin: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
     font-size: 1.5em;
+    margin-right: 20vw;
+    margin-top: 5vh;
 }
 
 .close-button {
-    top: 25vh;
-    right: 15vw;
+    position: relative;
+    top: 0;
+    left: 15vw;
     border: none;
     font-weight: bold;
     background: darkred;
@@ -69,7 +68,10 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
-    right: 5vw;
-    top: 15vh;
+}
+
+.dnd-app {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 7vw 2vh 3vw;
 }

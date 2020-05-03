@@ -8,11 +8,11 @@ export function usePlayerList() {
     const [playerList, setPlayerList] = useState([]);
     const NAME_EXISTS_ERROR_MESSAGE = 'This name already exists. Please choose another name';
 
-    function addPlayer(name, imageSrc, playerClass, editPlayer, doneEditingPlayer) {
-        if (playerList.map(player => player.key).includes(name)) {
+    function addPlayer(name, imageSrc, playerClass, present, stopPresenting) {
+        if (playerList.map(player => player.name).includes(name)) {
             alert(NAME_EXISTS_ERROR_MESSAGE);
         } else {
-            const newPlayer = new PlayerObject(name, imageSrc, playerClass, editPlayer, doneEditingPlayer);
+            const newPlayer = new PlayerObject(name, imageSrc, playerClass, present, stopPresenting);
             setPlayerList(prevPlayerList => {
                 const newPlayerList = [...prevPlayerList];
                 newPlayerList.push(newPlayer);
@@ -32,8 +32,8 @@ export default function PlayerList({listOfPlayers}) {
             imageSrc={player.imageSrc}
             name={player.name}
             playerClass={player.playerClass}
-            editPlayer={player.editPlayer}
-            doneEditingPlayer={player.doneEditingPlayer}
+            present={player.present}
+            stopPresenting={player.stopPresenting}
         />)}
     </div>;
 }
