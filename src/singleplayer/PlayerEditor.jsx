@@ -44,13 +44,12 @@ export default class PlayerEditor extends React.Component {
         this.setSkillPoints = this.setSkillPoints.bind(this);
         this.onResetClick = this.onResetClick.bind(this);
         this.onRandomClick = this.onRandomClick.bind(this);
-        this.setSkillNameToPoints = this.props.setSkillNameToPoints.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // If this is the first time that this component mounted:
         if(Object.keys(this.props.skillNameToPoints).length === 0) {
-            this.setSkillNameToPoints(this.getInitialSkillNameToPoints());
+            this.props.setSkillNameToPoints(this.getInitialSkillNameToPoints());
         }
     }
 

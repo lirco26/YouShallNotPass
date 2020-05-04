@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -27,14 +27,16 @@ export default function Player({name, imageSrc, playerClass, present, stopPresen
         </div>;
     }
 
-    useEffect(() => {
-        openEditorForPlayer();
-    }, []);
 
-    function openEditorForPlayer() {
+    const openEditorForPlayer = useCallback(() => {
         setIsPlayerEditorOpen(true);
         present(getEditor());
-    }
+    }, [present, setIsPlayerEditorOpen]);
+
+    // Bug here: probably related to the dependencies
+    useEffect(() => {
+        openEditorForPlayer();
+    }, [openEditorForPlayer]);
 
     function closeEditorForPlayer() {
         setIsPlayerEditorOpen(false);
